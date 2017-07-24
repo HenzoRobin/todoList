@@ -176,13 +176,22 @@ button[type=submit] {
       </form>
       <ul class="task-list">
         <li class="task-item" v-for='(item,id) in items' v-bind:class="{ complete: item.isComplete}" @dblclick="showDetail(id)" >
+<<<<<<< HEAD
           <span><input type="checkbox" @click="toggleComplete(id)" v-model="item.isComplete"></span>
+=======
+          <span><input type="checkbox" @click="toggleComplete(item)" v-model="item.isComplete"></span>
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
           <span class="task-content">{{ item.label }}</span>
           <span class="fr">
             <span class="action delete" @click="deleteItem(item)">删除</span>
           </span>
+<<<<<<< HEAD
           <div class="task-detail-mask" v-show="isShow" @click="hideDetail(item)"></div>
           <div class="task-detail" v-show="isShow">
+=======
+          <div class="task-detail-mask" v-show="item.isShow" @click="hideDetail(id)"></div>
+          <div class="task-detail" v-show="item.isShow">
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
             <form>
               <div class="content">{{ item.label }}</div>
               <div class="input-item">
@@ -202,6 +211,28 @@ button[type=submit] {
           </div>
         </li>
       </ul>
+<<<<<<< HEAD
+=======
+      <!-- <div class="task-detail-mask" v-show="isShow" @click="hideDetail"></div>
+      <div class="task-detail" v-show="isShow" v-for='(item,id) in items'>
+        <form>
+          <div class="content">{{ item.label }}</div>
+          <div class="input-item">
+            <input  type="text" name="content">
+          </div>
+          <div>
+            <div class="desc input-item">
+              <textarea name="desc"></textarea>
+            </div>
+          </div>
+          <div class="remind input-item">
+            <label>提醒时间：</label>
+            <input class="datetime" name="remind_date" type="text">
+          </div>
+          <div class="input-item"><button type="submit">提交</button></div>
+        </form>
+      </div> -->
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
     </div>
     <calendar></calendar>
   </div>
@@ -221,6 +252,10 @@ export default {
       title:'Yo ! This My ToDo List',
       items:Store.fetch(),
       newItem:'',
+<<<<<<< HEAD
+=======
+      // isShow:false,
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
       slideSpeed:2000,
       slides:[
         {
@@ -254,11 +289,21 @@ export default {
     toggleComplete:function(id){
       this.item.isComplete = item.isComplete
     },
+<<<<<<< HEAD
     showDetail:function(item) {
       this.item.isShow = true
     },
     hideDetail:function(item){
       this.item.isShow = false
+=======
+    showDetail:function(id) {
+
+      this.items[id].isShow = true
+    },
+    hideDetail:function(id){
+
+      this.items[id].isShow = false
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
     },
     addNew:function(){
       var value = this.newItem 
@@ -266,9 +311,15 @@ export default {
         return
       }else {
           this.items.unshift({
+<<<<<<< HEAD
           label:this.newItem,
           isComplete:false,
           isShow:false
+=======
+          label: this.newItem,
+          isComplete: false,
+          isShow: false,
+>>>>>>> 42df56055d1a9e5208c53b37afb143dd07393210
         })
       }
       this.newItem = ''
