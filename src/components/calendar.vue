@@ -134,15 +134,18 @@ export default {
       this.currentYear = date.getFullYear()
       this.curentMonth = date.getMonth() + 1
       this.curentWeek = date.getDay()
+
       if(this.curentWeek == 0) {
         this.curentWeek == 7 
       }
-      var str = this.formatDate(this.currentYear , this.currentMonth, this.currentDay);
-      this.days.length = 0;
+
+      var str = this.formatDate(this.currentYear,this.currentMonth,this.currentDay)
+      this.days.length = 0
 
       for (var i = this.currentWeek - 1; i >= 0; i--) {
         var d = new Date(str);
         d.setDate(d.getDate() - i);
+        //console.log("y:" + d.getDate());
         this.days.push(d);
       }
 
@@ -151,15 +154,16 @@ export default {
         d.setDate(d.getDate() + i);
         this.days.push(d);
       }
-  },
+    }, 
 
-  formatDate: function(year,month,day){
-      var y = year;
-      var m = month;
-      if(m<10) m = "0" + m;
-      var d = day;
-      if(d<10) d = "0" + d;
-      return y+"-"+m+"-"+d
+    formatDate:function(year,month,day){
+      if(month < 10){
+        month = "0" + month
+      }
+      if(day < 10){
+        day = "0" + day
+      }
+      return year + "-" + month + "-" + day 
     }
   }
 }

@@ -195,13 +195,13 @@ export default {
 
       var str = this.formatDate(this.currentYear , this.currentMonth, this.currentDay);
       console.log("today:" + str + "," + this.currentWeek);
-      this.days.length = 0;
+      this.days.length = 1;
 
      // 今天是周日，放在第一行第7个位置，前面6个
       for (var i = this.currentWeek - 1; i >= 0; i--) {
         var d = new Date(str);
         d.setDate(d.getDate() - i);
-        console.log("y:" + d.getDate());
+        //console.log("y:" + d.getDate());
         this.days.push(d);
       }
 
