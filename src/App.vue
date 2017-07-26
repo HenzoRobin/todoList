@@ -170,7 +170,6 @@ button[type=submit] {
 
     <div class="container">
       <h1 v-text="title"></h1>
-      <slider :slides="slides" :time="slideSpeed"></slider>
       <form class="add-task">
         <input type="text" name="content" autocomplete="off" autofocus placeholder="e.g.按时吃药,别弃疗....." v-model="newItem">
         <button type="submit" @click.prevent="addNew">提交</button>
@@ -195,75 +194,40 @@ button[type=submit] {
               </div>
               <div>
                 <div class="desc input-item">
-                  <textarea name="desc">{{ }}</textarea>
+                  <textarea name="desc" v-model="newDetail"></textarea>
                 </div>
               </div>
               <div class="remind input-item">
                 <label>提醒时间：</label>
-                <input class="datetime" name="remind_date" type="date">
+                <input name="remind_date" type="date">
               </div>
-              <div class="input-item"><button type="submit">提交</button></div>
+              <div class="input-item"><button type="submit" @click.prevent="edit">提交</button></div>
             </form>
           </div>
         </li>
       </ul>
-      <!-- <div class="task-detail-mask" v-show="isShow" @click="hideDetail"></div>
-      <div class="task-detail" v-show="isShow" v-for='(item,id) in items'>
-        <form>
-          <div class="content">{{ item.label }}</div>
-          <div class="input-item">
-            <input  type="text" name="content">
-          </div>
-          <div>
-            <div class="desc input-item">
-              <textarea name="desc"></textarea>
-            </div>
-          </div>
-          <div class="remind input-item">
-            <label>提醒时间：</label>
-            <input class="datetime" name="remind_date" type="text">
-          </div>
-          <div class="input-item"><button type="submit">提交</button></div>
-        </form>
-      </div> -->
     </div>
     <calendar></calendar>
+    <slides></slides>
   </div>
 </template>
 
 <script>
-import slider from './components/slider'
 import Store from './store'
 import calendar from './components/calendar'
+import slides from './components/slides'
 export default {
   components:{
-    slider,
     calendar,
+    slides
   },
   data:function(){
     return {
       title:'Yo ! This My ToDo List',
       items:Store.fetch(),
       newItem:'',
-      slideSpeed:2000,
-      slides:[
-        {
-          src:require('./assets/slideShow/pic1.jpg'),
-          title:'我是图片一'
-        },
-        {
-          src:require('./assets/slideShow/pic2.jpg'),
-          title:'我是图片二'
-        },
-        {
-          src:require('./assets/slideShow/pic3.jpg'),
-          title:'我是图片三'
-        },
-        {
-          src:require('./assets/slideShow/pic4.jpg'),
-          title:'我是图片四'
-        }
-      ]
+      Details:'',
+      newDetail:'',
     }
   },
   watch:{
@@ -313,6 +277,9 @@ export default {
       }else {
         return
       }
+    },
+    edit:function(){
+
     }
   }
 }
