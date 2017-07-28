@@ -209,6 +209,7 @@ button[type=submit] {
     </div>
     <calendar></calendar>
     <slides></slides>
+    <game></game>
   </div>
 </template>
 
@@ -216,10 +217,12 @@ button[type=submit] {
 import Store from './store'
 import calendar from './components/calendar'
 import slides from './components/slides'
+import game from './components/game'
 export default {
   components:{
     calendar,
-    slides
+    slides,
+    game
   },
   data:function(){
     return {
