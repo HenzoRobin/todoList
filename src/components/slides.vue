@@ -30,7 +30,7 @@
 	transform: translateX(150px);
 }
 .container:hover .infos>h1 {
-	transform: translateX(60px);
+	transform: translateX(120px);
 }
 .container:hover .arrow {
 	display: block;
@@ -88,8 +88,8 @@
 <template>
   	<div>
 		<div class="container" @mouseover="cleartimer" @mouseout="autoplay">
-		<a class="arrow prev" @click="goprev">&lt;</a>
-		<a class="arrow next" @click="gonext">&gt;</a>
+			<a class="arrow prev" @click="goprev">&lt;</a>
+			<a class="arrow next" @click="gonext">&gt;</a>
 			<div class="slider" :style="computeleft">	
 				<div class="show-img" v-for="item in slides" :style="bg(item.src)">
 					<div class="infos">

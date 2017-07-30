@@ -1,18 +1,20 @@
 <style scoped>
 * {
-	margin: 0;
+	margin: 0 ;
+	color: #fff;
 }
-body {
-	background-color: lightgrey;
+h1 {
+	margin: 10px;
 }
-.blockarea,
-h2 {
-	margin:  0 auto;
+.con {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
-
 .block {
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
 	border: 1px solid rgba(0, 0, 0, .4);
 	box-sizing: border-box;
 }
@@ -34,18 +36,18 @@ h2 {
 	transition: all .3s ;
 }
 .circle::before {
-	width: 135px;
-	height: 135px;
+	width: 90px;
+	height: 90px;
 	background-color: #f35;
 }
 .circle::after {
-	width: 90px;
-	height: 90px;
+	width: 60px;
+	height: 60px;
 	background-color: #1d7c80;
 }
 .cross::before,
 .cross::after{
-	width: 135px;
+	width: 90px;
 	height: 25px;
 	background-color: #fff;
 	border-radius: 20px;
@@ -57,13 +59,16 @@ h2 {
 	transform: translate(-50%,-50%) rotate(-45deg);
 }
 .smallnum {
-	opacity: .5;
+	opacity: .4;
 }
 .blockarea {
-	width: 450px;
-	height: 450px;
+	width: 360px;
+	height: 360px;
 	flex-wrap: wrap;
+	flex-direction: column;
 	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .small {
 	margin: 10px auto;
@@ -77,6 +82,7 @@ h2 {
 	text-align: center;
 	background-color: #fff;
 	color: #222;
+	margin-bottom: 5px;
 }
 h2:hover {
 	background-color: rgba(200, 200,200 .9);
@@ -86,17 +92,17 @@ h2:hover {
 
 
 <template>
-  <div>
-	  		<h1>{{ wintext }}</h1>
-			<div class="blockarea">
-				<div class="block" v-for = "(block,id) in blocks" v-bind:class="{circle:block.type == 1 , cross:block.type == -1}" v-on:click = "playergo(block)">
-					<div class="smallnum">
-						{{ id + 1 }}
-					</div>
+  <div class="con">
+  		<h1>{{ wintext }}</h1>
+		<div class="blockarea">
+			<div class="block" v-for = "(block,id) in blocks" v-bind:class="{circle:block.type == 1 , cross:block.type == -1}" v-on:click = "playergo(block)">
+				<div class="smallnum">
+					{{ id + 1 }}
 				</div>
 			</div>
-			<div class="block small" v-bind:class="{circle:turn == 1 , cross:turn == -1}"></div>
-			<h2 v-on:click="restart">Restart</h2>
+		</div>
+		<div class="block small" v-bind:class="{circle:turn == 1 , cross:turn == -1}"></div>
+		<h2 v-on:click="restart">Restart</h2>
   </div>
 </template>
 
