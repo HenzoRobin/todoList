@@ -39,6 +39,7 @@ textarea,
 }
 textarea {
   min-height: 100px;
+  resize: none;
 }
 
 input[type=text],
@@ -139,7 +140,6 @@ button[type=submit] {
 .task-detail-mask,
 .task-detail {
   position: fixed;
-  /* display: none; */
 }
 .show {
   display: block;
@@ -170,97 +170,64 @@ button[type=submit] {
 
     <div class="container">
       <h1 v-text="title"></h1>
-      <slider :slides="slides" :time="slideSpeed"></slider>
       <form class="add-task">
         <input type="text" name="content" autocomplete="off" autofocus placeholder="e.g.按时吃药,别弃疗....." v-model="newItem">
         <button type="submit" @click.prevent="addNew">提交</button>
       </form>
       <ul class="task-list">
-        <li class="task-item" v-for='(item,id) in items' v-bind:class="{ complete: item.isComplete}" @dblclick="showDetail(id)" >
-          <span><input type="checkbox" @click="toggleComplete(item)" v-model="item.isComplete"></span>
-          <span class="task-content">{{ item.label }}</span>
+        <li class="task-item" v-for='(item,id) in items' v-bind:class="{ complete: items[id].isComplete}" @dblclick="showDetail(id)" >
+          <!-- <span><input type="checkbox" @click="toggleComplete(id)" v-model="item.isComplete"></span> -->
+          <span><input type="checkbox" @click="toggleComplete(items[id])" v-model="items[id].isComplete"></span>
+          <span class="task-content">{{ items[id].label }}</span>
           <span class="fr">
             <span class="action delete" @click="deleteItem(item)">删除</span>
           </span>
-          <div class="task-detail-mask" v-show="item.isShow" @click="hideDetail(id)"></div>
-          <div class="task-detail" v-show="item.isShow">
+          <!-- <div class="task-detail-mask" v-show="isShow" @click="hideDetail(item)"></div>
+          <div class="task-detail" v-show="isShow"> -->
+
+          <div class="task-detail-mask" v-show="items[id].isShow" @click="hideDetail(id)"></div>
+          <div class="task-detail" v-show="items[id].isShow">
             <form>
-              <div class="content">{{ item.label }}</div>
+              <div class="content">{{ items[id].label }}</div>
               <div class="input-item">
                 <input  type="text" name="content">
               </div>
               <div>
                 <div class="desc input-item">
-                  <textarea name="desc"></textarea>
+                  <textarea name="desc" v-model="newDetail"></textarea>
                 </div>
               </div>
               <div class="remind input-item">
                 <label>提醒时间：</label>
-                <input class="datetime" name="remind_date" type="text">
+                <input name="remind_date" type="date">
               </div>
-              <div class="input-item"><button type="submit">提交</button></div>
+              <div class="input-item"><button type="submit" @click.prevent="edit">提交</button></div>
             </form>
           </div>
         </li>
       </ul>
-      <!-- <div class="task-detail-mask" v-show="isShow" @click="hideDetail"></div>
-      <div class="task-detail" v-show="isShow" v-for='(item,id) in items'>
-        <form>
-          <div class="content">{{ item.label }}</div>
-          <div class="input-item">
-            <input  type="text" name="content">
-          </div>
-          <div>
-            <div class="desc input-item">
-              <textarea name="desc"></textarea>
-            </div>
-          </div>
-          <div class="remind input-item">
-            <label>提醒时间：</label>
-            <input class="datetime" name="remind_date" type="text">
-          </div>
-          <div class="input-item"><button type="submit">提交</button></div>
-        </form>
-      </div> -->
     </div>
     <calendar></calendar>
+    <slides></slides>
   </div>
 </template>
 
 <script>
-import slider from './components/slider'
 import Store from './store'
 import calendar from './components/calendar'
+import slides from './components/slides'
 export default {
   components:{
-    slider,
     calendar,
+    slides
   },
   data:function(){
     return {
       title:'Yo ! This My ToDo List',
       items:Store.fetch(),
       newItem:'',
-      // isShow:false,
-      slideSpeed:2000,
-      slides:[
-        {
-          src:require('./assets/slideShow/pic1.jpg'),
-          title:'我是图片一'
-        },
-        {
-          src:require('./assets/slideShow/pic2.jpg'),
-          title:'我是图片二'
-        },
-        {
-          src:require('./assets/slideShow/pic3.jpg'),
-          title:'我是图片三'
-        },
-        {
-          src:require('./assets/slideShow/pic4.jpg'),
-          title:'我是图片四'
-        }
-      ]
+      Details:'',
+      newDetail:'',
     }
   },
   watch:{
@@ -272,9 +239,16 @@ export default {
     }
   },
   methods:{
-    toggleComplete:function(item){
-      item.isComplete = item.isComplete
+    toggleComplete:function(id){
+      this.items[id].isComplete = !this.items[id].isComplete
     },
+/*
+    showDetail:function(item) {
+      this.item.isShow = true
+    },
+    hideDetail:function(item){
+      this.item.isShow = false}*/
+
     showDetail:function(id) {
 
       this.items[id].isShow = true
@@ -289,9 +263,9 @@ export default {
         return
       }else {
           this.items.unshift({
-          label: this.newItem,
-          isComplete: false,
-          isShow: false,
+          label:this.newItem,
+          isComplete:false,
+          isShow:false
         })
       }
       this.newItem = ''
@@ -303,6 +277,9 @@ export default {
       }else {
         return
       }
+    },
+    edit:function(){
+
     }
   }
 }
