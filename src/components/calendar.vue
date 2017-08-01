@@ -91,13 +91,14 @@
       </ul>
     </div>
     <ul class="week">
-      <li>日</li>
+      
       <li>一</li>
       <li>二</li>
       <li>三</li>
       <li>四</li>
       <li>五</li>
       <li>六</li>
+      <li>日</li>
     </ul>
     <ul class="days">
       <li v-for="day in days">
@@ -140,16 +141,15 @@ export default {
       }
 
       var str = this.formatDate(this.currentYear,this.currentMonth,this.currentDay)
-      this.days.length = 0
+      // this.days.length = 0
 
-      for (var i = this.currentWeek - 1; i >= 0; i--) {
+      for (var i = this.currentWeek -1; i >= 0; i--) {
         var d = new Date(str);
         d.setDate(d.getDate() - i);
-        //console.log("y:" + d.getDate());
         this.days.push(d);
       }
 
-      for (var i = 1; i <= 35 - this.currentWeek; i++) {
+      for (var i = 1; i <= 42 - this.currentWeek; i++) {
         var d = new Date(str);
         d.setDate(d.getDate() + i);
         this.days.push(d);

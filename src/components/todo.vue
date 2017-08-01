@@ -1,21 +1,20 @@
-<style>
+<style scoped>
 *{
   box-sizing: border-box;
   font-family: 'microsoft yahei';
+  font-size: 16px;
   transition: background-color .15s;
   outline: 0;
   margin: 0px;
   padding: 0px;
-}
-body {
-  background-color: #1d7c80;
-  color: #fff;
 }
 .container {
   max-width: 900px;
   margin:0 auto;
   position: relative;
   padding:0 15px;
+  background-color: #1d7c80;
+  color: #fff;
 }
 ul {
   list-style: none;
@@ -24,16 +23,17 @@ li {
   display: block;
 }
 h1 {
+  font-size: 35px;
   text-align: center;
   padding: 20px;
   margin: 0;
 }
-input ,
-.task-item ,
+input,
+.task-item,
 button,
 textarea,
 .task-detail-mask ,
-.task-detail  {
+.task-detail {
   padding:10px;
   border-radius: 3px;
 }
@@ -73,6 +73,7 @@ button {
 }
 .add-task input[type=text] {
   float: left;
+  height: 38px;
   width: 84%;
   margin-right:1%;
 }
@@ -95,6 +96,7 @@ button[type=submit] {
   color: #333;
   margin-bottom: 5px;
   cursor: pointer;
+  height: 38px;
 }
 .task-item:hover {
   background-color: #ddd;
@@ -166,12 +168,11 @@ button[type=submit] {
 </style>
 
 <template>
-  <div id="app">
-
+  <div>
     <div class="container">
       <h1 v-text="title"></h1>
       <form class="add-task">
-        <input type="text" name="content" autocomplete="off" autofocus placeholder="e.g.按时吃药,别弃疗....." v-model="newItem">
+        <input type="text" name="content" autocomplete="off" autofocus placeholder="e.g.按时吃药,别弃疗....." v-model="newItem"> 
         <button type="submit" @click.prevent="addNew">提交</button>
       </form>
       <ul class="task-list">
@@ -207,20 +208,13 @@ button[type=submit] {
         </li>
       </ul>
     </div>
-    <calendar></calendar>
-    <slides></slides>
   </div>
 </template>
 
 <script>
-import Store from './store'
-import calendar from './components/calendar'
-import slides from './components/slides'
+import Store from '../store'
+
 export default {
-  components:{
-    calendar,
-    slides
-  },
   data:function(){
     return {
       title:'Yo ! This My ToDo List',
