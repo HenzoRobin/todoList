@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="less">
 * {
   margin: 0;
   box-sizing: border-box;
@@ -7,7 +7,9 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: 1px solid red;
+  img {
+    display: block;
+  }
 }
 </style>
 
