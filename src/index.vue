@@ -3,20 +3,29 @@
   margin: 0;
   box-sizing: border-box;
 }
-.bg {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  img {
-    display: block;
+.post {
+  max-width: 960px;
+  background-color: pink;
+  margin:0px auto; 
+  .postbox {
+    background-color: grey;
+    margin:10px;
+    width: 300px;
+    height: 200px;
+    float: left;
+    overflow: hidden;
   }
 }
+
 </style>
 
 
 <template>
-  <div class="bg">
-    <img  :src="bg[0].src">
+  <div class="post">
+      <div class="postbox" v-for="p in posts">
+        <h1>{{ p.title}}</h1>
+        <p>{{p.description}}</p>
+      </div>
   </div>
 </template>
 
@@ -26,17 +35,13 @@ import $ from 'jquery'
 export default {
   data:function(){
     return {
-      bg:[{
-        src: 'http://www.gmz88.com/picfile/news/contents/2016/06/17/2016061744232200.jpg'
-      }],
       posts:[]
     }
   },
   mounted(){
-    var vobj = this
     $.get('http://awiclass.monoame.com/api/command.php?type=get&name=post').then(function(res){
-      vobj.posts=JSON.parse(res);
-      console.log(vobj.posts)
+      this.posts = JSON.parse(res)
+      console.log(this.posts) 
     })
   }
 }
