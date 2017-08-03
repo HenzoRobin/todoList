@@ -22,28 +22,42 @@
 
 <template>
   <div class="post">
-    <!--   <div class="postbox" v-for="p in posts">
-        <h1>{{ p.title}}</h1>
+      <div class="postbox" v-for="p in posts">
+        <!-- <img :src="coverurl"> -->
+        <h1>{{p.name_cht}}</h1>
+        <h4>{{p.title}}</h4>
         <p>{{p.description}}</p>
-      </div> -->
+      </div>
   </div>
 </template>
 
 
 <script>
-// import $ from 'jquery'
+import axios from 'axios'
+
 export default {
   data:function(){
     return {
       posts:[]
     }
   },
-  // mounted(){
-  //   $.get('http://awiclass.monoame.com/api/command.php?type=get&name=post').then(function(res){
-  //     this.posts = JSON.parse(res)
-  //     console.log(this.posts) 
-  //   })
-  // }
+  computed:{
+    // coverurl(){
+    //   if(this.posts.cover.indexOf("http")!=-1){
+    //     return this.posts.cover ;
+    //   }else {
+    //     return "http://zashare.org" + this.posts.cover ;
+    //   }
+    // }
+  },
+  mounted(){
+    this.$axios.get('http://awiclass.monoame.com/api/command.php?type=get&name=post').then((res) => {
+      this.posts = res.data
+      console.log(res)
+    }).catch((err) => {
+      console.log("err")
+    })
+  }
 }
 
 </script>

@@ -9,6 +9,8 @@ import game from './components/game'
 import todo from './components/todo'
 import calendar from './components/calendar'
 import index from './index'
+import axios from 'axios';
+Vue.prototype.$axios = axios;
 
 
 Vue.use(VueRouter)
