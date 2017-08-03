@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import $ from 'jquery'  
+// import $ from 'jquery'  
 import Layout from './Layout'
 import VueRouter from 'vue-router'
 import slides from './components/slides'
@@ -13,7 +13,7 @@ import index from './index'
 
 Vue.use(VueRouter)
 let router = new VueRouter({
-	model:'histor',
+	model:'history',
 	routes:[
 		{
 			path:'/',
