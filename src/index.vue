@@ -2,18 +2,42 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: 'microsoft yahei';
+  color: #fff;
 }
 .post {
   max-width: 960px;
   background-color: pink;
   margin:0px auto; 
   .postbox {
-    background-color: grey;
+    background-color:lightgrey;
     margin:10px;
     width: 300px;
     height: 200px;
     float: left;
     overflow: hidden;
+  }
+  .move-panel {
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: translateY(85px);
+    padding:5px;
+    &:hover {
+      transform: translateY(50px);
+    }
+  }
+  h2 {
+    font-weight: 500;
+    font-size: 23px; 
+  }
+  h4 {
+    font-weight: 500;
+    padding:4px 0;
+    color: #eee;
+    font-style: italic;
+  }
+  p{
+    font-size: 15px;
+    padding-top:10px;
   }
 }
 
@@ -23,10 +47,12 @@
 <template>
   <div class="post">
       <div class="postbox" v-for="p in posts">
-        <!-- <img :src="coverurl"> -->
-        <h1>{{p.name_cht}}</h1>
-        <h4>{{p.title}}</h4>
-        <p>{{p.description}}</p>
+        <div class="move-panel">
+          <!-- <img :src="coverurl"> -->
+          <h2>{{p.name_cht}}</h2>
+          <h4>{{p.title}}</h4>
+          <p>{{p.description}}</p>
+        </div>
       </div>
   </div>
 </template>
@@ -42,13 +68,14 @@ export default {
     }
   },
   computed:{
-    // coverurl(){
-    //   if(this.posts.cover.indexOf("http")!=-1){
-    //     return this.posts.cover ;
-    //   }else {
-    //     return "http://zashare.org" + this.posts.cover ;
-    //   }
-    // }
+    coverurl(){
+
+      if(this.posts.cover.indexOf("http")!=-1){
+        return this.posts.cover ;
+      }else {
+        return "http://zashare.org" + this.posts.cover ;
+      }
+    }
   },
   mounted(){
     this.$axios.get('http://awiclass.monoame.com/api/command.php?type=get&name=post').then((res) => {
