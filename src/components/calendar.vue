@@ -149,7 +149,7 @@ export default {
         this.days.push(d);
       }
 
-      for (var i = 1; i <= 42 - this.currentWeek; i++) {
+      for (var i = 1; i <= 41 - this.currentWeek; i++) {
         var d = new Date(str);
         d.setDate(d.getDate() + i);
         this.days.push(d);
