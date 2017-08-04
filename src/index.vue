@@ -13,13 +13,24 @@
     background-color:lightgrey;
     margin:10px;
     width: 300px;
-    height: 200px;
+    height: 300px;
     float: left;
     overflow: hidden;
+    border-radius: 10px;
+    // img {
+    //   background-size: cover;
+    //   width: 100%;
+    // }
+  }
+  .back {
+    width: 300px;
+    height: 300px;
+
   }
   .move-panel {
     background-color: rgba(0, 0, 0, 0.4);
     transform: translateY(85px);
+
     padding:5px;
     &:hover {
       transform: translateY(50px);
@@ -46,12 +57,12 @@
 
 <template>
   <div class="post">
-      <div class="postbox" v-for="p in posts">
+      <div class="postbox" v-for="p in posts" :style="setBg(p.cover)">
+        <!-- <img :src="p.cover"> -->
         <div class="move-panel">
-          <!-- <img :src="coverurl"> -->
-          <h2>{{p.name_cht}}</h2>
-          <h4>{{p.title}}</h4>
-          <p>{{p.description}}</p>
+          <h2>{{p.name}}</h2>
+          <!-- <h4>{{p.title}}</h4>
+          <p>{{p.description}}</p> -->
         </div>
       </div>
   </div>
@@ -60,30 +71,56 @@
 
 <script>
 import axios from 'axios'
+import COMMON from './assets/common.js'
 
+if (localStorage.getItem('user')) {
+  COMMON.auth(axios)
+}
 export default {
   data:function(){
     return {
-      posts:[]
+      posts:[],
+      imgUrl: COMMON.URL.imgUrl
+    }
+  },
+  methods: {
+        getCate() {
+      axios.get(`${COMMON.URL.merApi}categories`).then((res) => {
+      res.data.data.map((item) => {
+        if (item.id > 4) {
+          this.posts.push({
+            id: item.id,
+            name: item.name,
+            cover: this.imgUrl + item.showImg
+          })
+        }
+        
+      })
+    }).catch((err) => {
+      alert('草拟吗！')
+      throw err
+    })
+    },
+    setBg(url) {
+      let ret = {}
+      ret.background = `url(${url})`
+      ret.backgroundSize = 'cover'
+      return ret
     }
   },
   computed:{
     coverurl(){
-
-      if(this.posts.cover.indexOf("http")!=-1){
-        return this.posts.cover ;
-      }else {
-        return "http://zashare.org" + this.posts.cover ;
-      }
-    }
+      console.log(this.posts.cover)
+      // if(this.posts.cover.indexOf("http")!=-1){
+      //   return this.posts.cover ;
+      // }else {
+      //   return "http://zashare.org" + this.posts.cover ;
+      // }
+    },
   },
   mounted(){
-    this.$axios.get('http://awiclass.monoame.com/api/command.php?type=get&name=post').then((res) => {
-      this.posts = res.data
-      console.log(res)
-    }).catch((err) => {
-      console.log("err")
-    })
+    this.getCate()
+
   }
 }
 

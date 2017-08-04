@@ -1,7 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-// import $ from 'jquery'  
+import Vue from 'vue' 
 import Layout from './Layout'
 import VueRouter from 'vue-router'
 import slides from './components/slides'
@@ -10,7 +9,6 @@ import todo from './components/todo'
 import calendar from './components/calendar'
 import index from './index'
 import axios from 'axios';
-Vue.prototype.$axios = axios;
 
 
 Vue.use(VueRouter)
